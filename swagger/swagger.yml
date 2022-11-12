@@ -1,0 +1,444 @@
+openapi: 3.0.0
+info:
+  title: Backend-challenge
+  description: API description.
+  version: 0.1
+servers:
+  - url: http://localhost:5000
+    description: Local deployment
+  - url: https://back-pontotel.herokuapp.com/
+    description: Homolog server
+paths:
+  /auth:
+    post:
+      summary: Autenticação.
+      description: Realiza autenticação login/senha do usuário e retorna token de acesso e refresh.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf: [
+                  {
+                    $ref: '#/components/schemas/authResponse'
+                  },
+                  {
+                    $ref: '#/components/schemas/authResponseError'
+                  }
+                ]
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericResponseFieldErrors'
+      requestBody:
+        description: Dados necessários para validação
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authRequest'
+
+  /perfil/all:
+    get:
+      summary: Listagem de perfis.
+      description: Retorna a lista de perfis cadastrados no sistema.
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: page
+          in: query
+          description: Página
+          required: false
+          schema:
+            type: integer
+        - name: cpf
+          in: query
+          description: CPF para filtro
+          required: false
+          schema:
+            type: string
+
+      responses:
+        '200':
+          description: Uma lista paginada de perfis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/perfilAllResponse"
+        default:
+          description: erro
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+
+  /usuario/all:
+    get:
+      summary: Listagem de usuários.
+      description: Retorna a lista de usuários cadastrados no sistema.
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: page
+          in: query
+          description: Página
+          required: false
+          schema:
+            type: integer
+        - name: email
+          in: query
+          description: Email para filtro
+          required: false
+          schema:
+            type: string
+
+      responses:
+        '200':
+          description: Uma lista paginada de usuários
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/usuarioAllResponse"
+        default:
+          description: erro
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+
+  /usuario/cadastro:
+    post:
+      summary: Criação de usuário
+      description: Cria um usuário de acesso
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf: [
+                  {
+                    $ref: '#/components/schemas/genericSuccessResponse'
+                  },
+                  {
+                    $ref: '#/components/schemas/genericResponseError'
+                  }
+                ]
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericResponseFieldErrors'
+      requestBody:
+        description: Dados necessários para a criação de um usuário
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cadastroRequest'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    authResponse:
+      type: object
+      required:
+        - access_token
+        - refresh_token
+        - cargo
+        - cargo_id
+        - email
+      properties:
+        access_token:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTc4NzU0ODYsIm5iZiI6MTYxNzg3NTQ4NiwianRpIjoiZDhlYjkxYWQtNWY2NS00OTdiLTgzOGMtNjg2NmUyZDhhZDk5IiwiZXhwIjoxNjE3ODc2Mzg2LCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.lHqK0_Sd4032E_1f9XhD17BhAa7KgvOfoaaP9uYJbpk
+        refresh_token:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTc4NzU0ODYsIm5iZiI6MTYxNzg3NTQ4NiwianRpIjoiMTU2ODVlN2YtMjA4Yy00ZWU3LTgwY2QtOGRjZTdkYzliYWNkIiwiZXhwIjoxNjIwNDY3NDg2LCJpZGVudGl0eSI6MSwidHlwZSI6InJlZnJlc2gifQ.vpx-6uUCNuNmqP1YO200dBf4GXJM37YEyORMAgYqG24
+        cargo_id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          example: joelvictor1746@gmail.com
+        perfil_id:
+          type: integer
+          example: 1
+        perfil:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            nome:
+              type: string
+              example: Joel
+            cpf:
+              type: string
+              example: 04171650305
+            pis:
+              type: string
+              example: 19494124297
+        cargo:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: administrador
+
+    authRequest:
+      type: object
+      required:
+        - email
+        - senha
+      properties:
+        email:
+          type: string
+          example: joelvictor1746@gmail.com
+        senha:
+          type: string
+          example: 1234
+
+    authResponseError:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Não foi possível criar o cadastro. Verifique os dados e tente novamente."
+        form:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "A senha informada não corresponde com a do usuário."
+
+    cadastroRequest:
+      type: object
+      required:
+        - email
+        - senha
+        - cep
+        - cpf
+        - nome
+        - pis
+        - numero
+        - rua
+        - cidade_id
+      properties:
+        email:
+          type: string
+          example: joelvictor1746@gmail.com
+        senha:
+          type: string
+          example: 123456
+        cep:
+          type: string
+          example: 60730-235
+        cidade_id:
+          type: integer
+          example: 3500
+        cpf:
+          type: string
+          example: 041.716.503-05
+        nome:
+          type: string
+          example: joel
+        pis:
+          type: string
+          example: 194.94124.29-7
+        rua:
+          type: string
+          example: R comendador garcia
+        numero:
+          type: string
+          example: 1414
+        complemento:
+          type: string
+          example: A
+
+    usuarioAllResponse:
+      type: object
+      required:
+        - error
+        - itens
+      properties:
+        error:
+          type: boolean
+          example: False
+        itens:
+          type: array
+          items:
+            $ref: "#/components/schemas/usuario"
+
+    usuario:
+        type: object
+        required:
+          - id
+          - email
+          - cargo_id
+        properties:
+          id:
+            type: integer
+            example: 1
+          email:
+            type: string
+            example: joelvictor1746@gmail.com
+          cargo_id:
+            type: integer
+            example: 1
+          perfil_id:
+            type: integer
+            example: 1
+
+    perfilAllResponse:
+      type: object
+      required:
+        - error
+        - itens
+      properties:
+        error:
+          type: boolean
+          example: False
+        itens:
+          type: array
+          items:
+            $ref: "#/components/schemas/perfil"
+
+    error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: boolean
+          example: True
+        message:
+          type: string
+
+    perfil:
+      type: object
+      required:
+        - id
+        - cep
+        - cpf
+        - nome
+        - pis
+        - numero
+        - rua
+        - cidade_id
+      properties:
+        id:
+          type: integer
+          example: 1
+        cep:
+          type: string
+          example: 60730-235
+        cidade_id:
+          type: integer
+          example: 3500
+        cpf:
+          type: string
+          example: 041.716.503-05
+        nome:
+          type: string
+          example: joel
+        pis:
+          type: string
+          example: 194.94124.29-7
+        rua:
+          type: string
+          example: R comendador garcia
+        numero:
+          type: string
+          example: 1414
+        complemento:
+          type: string
+          example: A
+
+    genericSuccessResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: "Cadastro criado com sucesso."
+
+    genericResponseError:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Não foi possível criar o cadastro. Verifique os dados e tente novamente."
+        form:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "A senha informada não corresponde com a do usuário."
+
+    genericResponseFieldErrors:
+      type: object
+      required:
+        - status_code
+        - validation_error
+      properties:
+        message:
+          type: string
+          example: "Ocorreram errors durante a validação de alguns dados, verifique o formulário e tente novamente."
+        status_code:
+          type: integer
+          example: 400
+        validation_error:
+          type: object
+          properties:
+            body_params:
+              type: array
+              items:
+                type: object
+                properties:
+                  ctx:
+                    type: object
+                    properties:
+                      limit_value:
+                        type: integer
+                        example: 6
+                  loc:
+                    type: array
+                    items:
+                      type: string
+                      example: campo_com_erro
+                  msg:
+                    type: string
+                    example: "Este campo deve possuir pelo menos 6 caractéres."
+                  type:
+                    type: string
+                    example: "value_error.any_str.min_length"
+
