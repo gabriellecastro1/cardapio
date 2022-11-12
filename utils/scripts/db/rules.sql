@@ -8,7 +8,7 @@ insert into cargo (id, nome) values (2, 'cliente');
 --  Usuarios
 ---
 
-insert into usuario (email, senha, cargo_id) values ('joelvictor1746@gmail.com', 'sha256$l2ygbSdF$2d03f994b4d99fdf6ca30832852826564189f3438a9f6abc7249bc74c08b7843', 1);
+insert into usuario (email, senha, cargo_id) values ('gabriellec4stro@gmail.com', 'sha256$l2ygbSdF$2d03f994b4d99fdf6ca30832852826564189f3438a9f6abc7249bc74c08b7843', 1);
 
 
 ---
