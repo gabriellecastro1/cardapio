@@ -30,3 +30,4 @@ ujson==4.0.2
 urllib3==1.26.4
 validate-docbr==1.8.2
 Werkzeug==1.0.1
+
