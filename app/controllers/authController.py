@@ -29,8 +29,7 @@ def login():
     user = db.session.query(Usuario).join(Perfil, Perfil.id == Usuario.perfil_id, isouter=True).filter(
         or_(
             Usuario.email == email,
-            Perfil.cpf == cpf_pis,
-            Perfil.pis == cpf_pis
+            Perfil.cpf == cpf_pis
         )
     ).first()
 

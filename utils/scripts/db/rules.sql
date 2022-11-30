@@ -18,6 +18,8 @@ insert into controller (id, nome) values (1, 'usuario');
 insert into controller (id, nome) values (2, 'perfil');
 insert into controller (id, nome) values (3, 'cargo');
 insert into controller (id, nome) values (4, 'cidade');
+insert into controller (id, nome) values (5, 'prato');
+insert into controller (id, nome) values (6, 'cardapio');
 
 ---
 --  Regras
@@ -48,3 +50,15 @@ INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view'
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    1, 4, True);    -- /cidade/add
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   1, 4, True);    -- /cidade/edit
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 1, 4, True);    -- /cidade/delete
+
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('all',    1, 5, True);    -- /prato/all
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view',   1, 5, True);    -- /prato/view
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    1, 5, True);    -- /prato/add
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   1, 5, True);    -- /prato/edit
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 1, 5, True);    -- /prato/delete
+
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('all',    1, 6, True);    -- /cardapio/all
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view',   1, 6, True);    -- /cardapio/view
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    1, 6, True);    -- /cardapio/add
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   1, 6, True);    -- /cardapio/edit
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 1, 6, True);    -- /cardapio/delete
