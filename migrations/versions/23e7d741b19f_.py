@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 89925e54ed1f
+Revision ID: 23e7d741b19f
 Revises: 
-Create Date: 2022-11-12 09:44:48.615682
+Create Date: 2022-11-30 08:20:01.966442
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '89925e54ed1f'
+revision = '23e7d741b19f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,6 +36,11 @@ def upgrade():
     sa.Column('iso', sa.String(length=5), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('iso')
+    )
+    op.create_table('prato',
+    sa.Column('id', sa.BigInteger(), nullable=False),
+    sa.Column('descricao', sa.String(length=255), nullable=False),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('estado',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -101,6 +106,7 @@ def downgrade():
     op.drop_table('cidade')
     op.drop_table('regra')
     op.drop_table('estado')
+    op.drop_table('prato')
     op.drop_table('pais')
     op.drop_table('controller')
     op.drop_table('cargo')

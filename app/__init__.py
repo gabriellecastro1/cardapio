@@ -9,16 +9,12 @@ import os
 app = Flask(__name__)
 app.config.from_object('config')
 
-
 CORS(app)
 
 jwt = JWTManager(app)
-
 db  = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
 manager = Manager(app)
-
 
 server = Server(host="0.0.0.0", port=os.getenv('PORT', 5000))
 manager.add_command("runserver", server)
@@ -37,6 +33,14 @@ from app.models.perfilTable import Perfil
 from app.models.cidadeTable import Cidade
 from app.models.estadoTable import Estado
 from app.models.paisTable import Pais
+
+from app.models.pratoTable import Prato
+from app.models.alunoTable import Aluno
+from app.models.cardapioTable import Cardapio
+from app.models.tipoRefeicaoTable import TipoRefeicao
+from app.models.refeicaoTable import Refeicao
+from app.models.alunoRefeicaoTable import AlunoRefeicao
+from app.models.avaliacaoTable import Avaliacao
 
 from app.model_schema.usuarioSchema import UsuarioAddSchema, UsuarioEditSchema
 from app.model_schema.perfilSchema import PerfilAddSchema
