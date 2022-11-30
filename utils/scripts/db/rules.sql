@@ -20,6 +20,8 @@ insert into controller (id, nome) values (3, 'cargo');
 insert into controller (id, nome) values (4, 'cidade');
 insert into controller (id, nome) values (5, 'prato');
 insert into controller (id, nome) values (6, 'cardapio');
+insert into controller (id, nome) values (7, 'tipoRefeicao');
+insert into controller (id, nome) values (8, 'refeicao');
 
 ---
 --  Regras
@@ -62,3 +64,15 @@ INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view'
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    1, 6, True);    -- /cardapio/add
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   1, 6, True);    -- /cardapio/edit
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 1, 6, True);    -- /cardapio/delete
+
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('all',    1, 7, True);    -- /tipo-refeicao/all
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view',   1, 7, True);    -- /tipo-refeicao/view
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    1, 7, True);    -- /tipo-refeicao/add
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   1, 7, True);    -- /tipo-refeicao/edit
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 1, 7, True);    -- /tipo-refeicao/delete
+
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('all',    1, 8, True);    -- /refeicao/all
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view',   1, 8, True);    -- /refeicao/view
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    1, 8, True);    -- /refeicao/add
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   1, 8, True);    -- /refeicao/edit
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 1, 8, True);    -- /refeicao/delete

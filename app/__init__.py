@@ -48,6 +48,8 @@ from app.model_schema.authSchema import AuthLoginSchema
 from app.model_schema.cadastroSchema import CadastroAddSchema
 from app.model_schema.pratoSchema import PratoAddSchema
 from app.model_schema.cardapioSchema import CardapioAddSchema
+from app.model_schema.tipoRefeicaoSchema import TipoRefeicaoAddSchema
+from app.model_schema.refeicaoSchema import RefeicaoAddSchema
 
 from app.controllers import usuarioController
 from app.controllers import authController
@@ -56,4 +58,6 @@ from app.controllers import cargoController
 from app.controllers import cidadeController
 from app.controllers import pratoController
 from app.controllers import cardapioController
+from app.controllers import tipoRefeicaoController
+from app.controllers import refeicaoController
 
