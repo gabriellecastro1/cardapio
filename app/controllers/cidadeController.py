@@ -24,7 +24,7 @@ def cidadeAll():
         data = {}
         data["id"] = cidade.id
         data["nome"] = cidade.nome
-        data["estado__id"] = cidade.estado_id
+        data["estado_id"] = cidade.estado_id
 
         output["itens"].append(data)
 

@@ -2,7 +2,6 @@
 --  Cargos
 ---
 insert into cargo (id, nome) values (1, 'administrador');
-insert into cargo (id, nome) values (2, 'cliente');
 
 ---
 --  Usuarios
@@ -49,28 +48,3 @@ INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view'
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    1, 4, True);    -- /cidade/add
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   1, 4, True);    -- /cidade/edit
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 1, 4, True);    -- /cidade/delete
---
---- cliente
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('all',    2, 1, False);   -- /usuario/all
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view',   2, 1, True);    -- /usuario/view
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    2, 1, False);    -- /usuario/add
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   2, 1, True);    -- /usuario/edit
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 2, 1, True);    -- /usuario/delete
-
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('all',    2, 2, False);   -- /perfil/all
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view',   2, 2, True);    -- /perfil/view
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    2, 2, False);    -- /perfil/add
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   2, 2, True);    -- /perfil/edit
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 2, 2, False);    -- /perfil/delete
-
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('all',    2, 3, False);    -- /cargo/all
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view',   2, 3, False);    -- /cargo/view
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    2, 3, False);    -- /cargo/add
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   2, 3, False);    -- /cargo/edit
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 2, 3, False);    -- /cargo/delete
-
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('all',    2, 4, True);    -- /cidade/all
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view',   2, 4, True);    -- /cidade/view
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    2, 4, False);    -- /cidade/add
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   2, 4, False);    -- /cidade/edit
-INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 2, 4, False);    -- /cidade/delete
