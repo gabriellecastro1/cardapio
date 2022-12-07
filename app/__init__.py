@@ -49,7 +49,7 @@ from app.model_schema.cadastroSchema import CadastroAddSchema
 from app.model_schema.pratoSchema import PratoAddSchema
 from app.model_schema.cardapioSchema import CardapioAddSchema
 from app.model_schema.tipoRefeicaoSchema import TipoRefeicaoAddSchema
-from app.model_schema.refeicaoSchema import RefeicaoAddSchema
+from app.model_schema.refeicaoSchema import RefeicaoAddSchema, RefeicaoAvaliarSchema
 
 from app.controllers import usuarioController
 from app.controllers import authController

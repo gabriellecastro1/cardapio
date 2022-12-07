@@ -3,15 +3,15 @@ from flask import request, jsonify
 from flask_jwt_extended import jwt_required
 from sqlalchemy import exc, or_
 from . import resource, paginate, field_validator
-from app import Refeicao
+from app import Refeicao, Avaliacao
 from app import fieldsFormatter
 
-from app import RefeicaoAddSchema
+from app import RefeicaoAddSchema, RefeicaoAvaliarSchema
 
 
 @app.route("/refeicao/all", methods=["GET"])
-@jwt_required
-@resource("refeicao-all")
+# @jwt_required
+# @resource("refeicao-all")
 def refeicaoAll():
     page = request.args.get("page", 1, type=int)
     rows_per_page = request.args.get("rows_per_page", app.config["ROWS_PER_PAGE"], type=int)
@@ -39,8 +39,8 @@ def refeicaoAll():
 
 
 @app.route("/refeicao/view/<int:refeicao_id>", methods=["GET"])
-@jwt_required
-@resource("refeicao-view")
+# @jwt_required
+# @resource("refeicao-view")
 def refeicaoView(refeicao_id: int):
 
     refeicao = Refeicao.query.get(refeicao_id)
@@ -153,4 +153,34 @@ def refeicaoDelete(refeicao_id: int):
     except exc.IntegrityError:
         return jsonify(
             {"message": Messages.REGISTER_DELETE_INTEGRITY_ERROR, "error": True}
+        )
+
+# --------------------------------------------------------------------------------------------------#
+
+@app.route("/refeicao/avaliar", methods=["POST"])
+@field_validator(RefeicaoAvaliarSchema)
+def refeicaoAvaliar():
+
+    data = request.get_json()
+
+    avaliacao = Avaliacao(
+        nota = data.get("nota"),
+        comentario = data.get("comentario"),
+        refeicao_id = data.get("refeicao_id")
+    )
+
+    db.session.add(avaliacao)
+
+    try:
+        db.session.commit()
+        return jsonify(
+            {
+                "message": Messages.REGISTER_SUCCESS_CREATED.format("Avaliação"),
+                "error": False,
+            }
+        )
+    except exc.IntegrityError:
+        db.session.rollback()
+        return jsonify(
+            {"message": Messages.REGISTER_CREATE_INTEGRITY_ERROR, "error": True}
         )

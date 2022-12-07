@@ -28,7 +28,9 @@ class Refeicao(db.Model):
             "descricao": self.descricao,
             "tipo_refeicao_id": self.tipo_refeicao_id,
             "cardapio_id": self.cardapio_id,
+            "cardapio": self.cardapio.to_dict(),
             "prato_id": self.prato_id,
+            "prato": self.prato.to_dict(),
         }
 
         return output

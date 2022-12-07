@@ -6,7 +6,7 @@ class Avaliacao(db.Model):
     id = db.Column(db.BigInteger, primary_key=True)
     refeicao_id = db.Column(db.BigInteger, db.ForeignKey("refeicao.id"), nullable=False)
     nota = db.Column(db.Integer, nullable=False)
-    comentario = db.Column(db.Text, nullable=False)
+    comentario = db.Column(db.Text, nullable=True)
 
     # --------------------------------------------------------------------------------------------------#
 

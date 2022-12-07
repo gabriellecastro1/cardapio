@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel, constr
+from pydantic import BaseModel, constr, conint
 import json
 
 class RefeicaoAddSchema(BaseModel):
@@ -11,3 +11,13 @@ class RefeicaoAddSchema(BaseModel):
     
     class Config:
         json_loads = json.loads
+
+class RefeicaoAvaliarSchema(BaseModel):
+    # mandatory field
+    nota: conint(gt= 0, lt= 6)
+    comentario: Optional[constr(min_length=0)]
+    refeicao_id: int
+    
+    class Config:
+        json_loads = json.loads
+
