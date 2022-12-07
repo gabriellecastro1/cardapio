@@ -22,6 +22,7 @@ insert into controller (id, nome) values (5, 'prato');
 insert into controller (id, nome) values (6, 'cardapio');
 insert into controller (id, nome) values (7, 'tipoRefeicao');
 insert into controller (id, nome) values (8, 'refeicao');
+insert into controller (id, nome) values (9, 'aluno');
 
 ---
 --  Regras
@@ -76,3 +77,9 @@ INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view'
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    1, 8, True);    -- /refeicao/add
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   1, 8, True);    -- /refeicao/edit
 INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 1, 8, True);    -- /refeicao/delete
+
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('all',    1, 9, True);    -- /aluno/all
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('view',   1, 9, True);    -- /aluno/view
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('add',    1, 9, True);    -- /aluno/add
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('edit',   1, 9, True);    -- /aluno/edit
+INSERT INTO public.regra(acao, cargo_id, controller_id, permitir) VALUES ('delete', 1, 9, True);    -- /aluno/delete
