@@ -17,6 +17,7 @@ class Cardapio(db.Model):
 
     def to_dict(self):
         output = {
+            "id": self.id,
             "data": self.data
         }
 

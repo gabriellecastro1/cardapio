@@ -28,7 +28,11 @@ class Refeicao(db.Model):
             "descricao": self.descricao,
             "tipo_refeicao_id": self.tipo_refeicao_id,
             "cardapio_id": self.cardapio_id,
+            "cardapio": self.cardapio.to_dict(),
             "prato_id": self.prato_id,
+            "prato": self.prato.to_dict(),
+            "confirmacoes": self.confirmacoes(),
+            "avaliacao_media": self.avaliacao_media(),
         }
 
         return output
@@ -37,3 +41,35 @@ class Refeicao(db.Model):
 
     def __repr__(self):
         return "<Refeicao %r>" % self.id
+
+    # --------------------------------------------------------------------------------------------------#
+
+    def avaliacao_media(self):
+        avaliacao_media = 0
+        avaliacao_count = 0
+
+        for avaliacao in self.avaliacoes:
+            avaliacao_media = avaliacao_media + avaliacao.nota
+            avaliacao_count = avaliacao_count + 1
+
+        if avaliacao_count > 0:
+            avaliacao_media = avaliacao_media / avaliacao_count
+        
+        return avaliacao_media
+
+    # --------------------------------------------------------------------------------------------------#
+
+    def confirmacoes(self):
+        confirm_y = 0
+        confirm_n = 0
+
+        for confirmacao in self.alunos:
+            if confirmacao.confirmado:
+                confirm_y = confirm_y + 1
+            else:
+                confirm_n = confirm_n + 1
+        
+        return {
+            "sim": confirm_y,
+            "nao": confirm_n
+        }

@@ -5,7 +5,7 @@ class Perfil(db.Model):
 
     id = db.Column(db.BigInteger, primary_key=True)
     nome = db.Column(db.String(255), nullable=False)
-    pis = db.Column(db.String(50), unique=True, nullable=False)
+    siape = db.Column(db.String(20), unique=True, nullable=False)
     cpf = db.Column(db.String(50), unique=True, nullable=False)
     cep = db.Column(db.String(20), nullable=False)
     rua = db.Column(db.String(255), nullable=False)
@@ -16,9 +16,9 @@ class Perfil(db.Model):
 
     # --------------------------------------------------------------------------------------------------#
 
-    def __init__(self, nome: str, pis: str, cpf: str, cep: str, rua: str, numero: str, complemento: str, cidade_id: int):
+    def __init__(self, nome: str, siape: str, cpf: str, cep: str, rua: str, numero: str, complemento: str, cidade_id: int):
         self.nome = nome
-        self.pis = pis
+        self.siape = siape
         self.cpf = cpf
         self.cep = cep
         self.rua = rua
@@ -32,7 +32,7 @@ class Perfil(db.Model):
         data = {
             "id": self.id,
             "nome": self.nome,
-            "pis": fieldsFormatter.PisFormatter().format(self.pis),
+            "siape": self.siape,
             "cpf": fieldsFormatter.CpfFormatter().format(self.cpf),
             "cep": fieldsFormatter.CepFormatter().format(self.cep),
             "rua": self.rua,
@@ -45,5 +45,5 @@ class Perfil(db.Model):
     # --------------------------------------------------------------------------------------------------#
 
     def __repr__(self):
-        return "<Perfil %r %r %r %r %r %r %r %r %r>" %(self.id, self.nome, self.pis, self.cpf, self.cep, self.rua,
+        return "<Perfil %r %r %r %r %r %r %r %r %r>" %(self.id, self.nome, self.siape, self.cpf, self.cep, self.rua,
                                                        self.numero, self.complemento, self.cidade_id)

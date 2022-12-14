@@ -17,11 +17,15 @@ def perfilAll():
     page = request.args.get("page", 1, type=int)
     rows_per_page = request.args.get("rows_per_page", app.config["ROWS_PER_PAGE"], type=int)
     cpf = request.args.get("cpf", None)
+    siape = request.args.get("siape", None)
 
     query = Perfil.query
 
     if cpf != None:
         query = query.filter(Perfil.cpf.ilike("%%{}%%".format(fieldsFormatter.CpfFormatter().clean(cpf))))
+
+    if siape != None:
+        query = query.filter(Perfil.siape.ilike("%%{}%%".format(siape)))
 
     perfis, output = paginate(query, page, rows_per_page)
 
@@ -75,16 +79,16 @@ def perfilAdd():
 
     # check if there is already a user registered
     cpf = fieldsFormatter.CpfFormatter().clean(data["cpf"])
-    pis = fieldsFormatter.PisFormatter().clean(data["pis"])
-    perfil = Perfil.query.filter(or_(Perfil.cpf == cpf, Perfil.pis == pis)).first()
+    siape = fieldsFormatter.PisFormatter().clean(data["siape"])
+    perfil = Perfil.query.filter(or_(Perfil.cpf == cpf, Perfil.siape == siape)).first()
     if perfil is not None:
         return jsonify(
-            {"message": Messages.ALREADY_EXISTS.format("CPF/PIS"), "error": True}
+            {"message": Messages.ALREADY_EXISTS.format("CPF/SIAPE"), "error": True}
         )
 
     perfil = Perfil(
         nome=data.get("nome"),
-        pis=fieldsFormatter.PisFormatter().clean(data.get("pis")),
+        siape=data.get("siape"),
         cpf=fieldsFormatter.CpfFormatter().clean(data.get("cpf")),
         cep=fieldsFormatter.CepFormatter().clean(data.get("cep")),
         rua=data.get("rua"),
@@ -131,11 +135,11 @@ def perfilEdit(perfil_id: int):
 
     # check if there is already a user registered, excluding itself
     cpf = fieldsFormatter.CpfFormatter().clean(data["cpf"])
-    pis = fieldsFormatter.PisFormatter().clean(data["pis"])
-    perfil = Perfil.query.filter(or_(Perfil.cpf == cpf, Perfil.pis == pis)).filter(Perfil.id != perfil_id).first()
+    siape = data["siape"]
+    perfil = Perfil.query.filter(or_(Perfil.cpf == cpf, Perfil.siape == siape)).filter(Perfil.id != perfil_id).first()
     if perfil is not None:
         return jsonify(
-            {"message": Messages.ALREADY_EXISTS.format("CPF/PIS"), "error": True}
+            {"message": Messages.ALREADY_EXISTS.format("CPF/SIAPE"), "error": True}
         )
 
 
@@ -147,8 +151,8 @@ def perfilEdit(perfil_id: int):
         )
 
     perfil.nome = data.get("nome")
-    perfil.pis = fieldsFormatter.PisFormatter().clean(data.get("pis")),
-    perfil.cpf = fieldsFormatter.CpfFormatter().clean(data.get("cpf")),
+    perfil.siape = data.get("siape")
+    perfil.cpf = fieldsFormatter.CpfFormatter().clean(data.get("cpf"))
     perfil.cep = fieldsFormatter.CepFormatter().clean(data.get("cep"))
     perfil.rua = data.get("rua")
     perfil.numero = data.get("numero")

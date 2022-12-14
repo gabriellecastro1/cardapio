@@ -6,7 +6,7 @@ import json
 class PerfilAddSchema(BaseModel):
     # mandatory field
     nome: constr(min_length=2, max_length=255)
-    pis: constr(min_length=11, max_length=50)
+    siape: constr(min_length=2, max_length=20)
     cpf: constr(min_length=11, max_length=50)
     cep: constr(min_length=2, max_length=20)
     rua: constr(min_length=3, max_length=255)
@@ -25,10 +25,3 @@ class PerfilAddSchema(BaseModel):
             return cpf
         else:
             raise ValueError('O CPF informado é inválido.')
-
-    @validator('pis')
-    def pis_validator(cls, pis):
-        if PIS().validate(pis):
-            return pis
-        else:
-            raise ValueError('O PIS informado é inválido.')

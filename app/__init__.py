@@ -46,10 +46,20 @@ from app.model_schema.usuarioSchema import UsuarioAddSchema, UsuarioEditSchema
 from app.model_schema.perfilSchema import PerfilAddSchema
 from app.model_schema.authSchema import AuthLoginSchema
 from app.model_schema.cadastroSchema import CadastroAddSchema
+from app.model_schema.pratoSchema import PratoAddSchema
+from app.model_schema.cardapioSchema import CardapioAddSchema
+from app.model_schema.tipoRefeicaoSchema import TipoRefeicaoAddSchema
+from app.model_schema.refeicaoSchema import RefeicaoAddSchema, RefeicaoAvaliarSchema
+from app.model_schema.alunoSchema import AlunoAddSchema, AlunoConfirmarSchema
 
 from app.controllers import usuarioController
 from app.controllers import authController
 from app.controllers import perfilController
 from app.controllers import cargoController
 from app.controllers import cidadeController
+from app.controllers import pratoController
+from app.controllers import cardapioController
+from app.controllers import tipoRefeicaoController
+from app.controllers import refeicaoController
+from app.controllers import alunoController
 

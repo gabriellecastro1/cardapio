@@ -47,6 +47,4 @@ def cargoView(cargo_id: int):
     data["id"] = cargo.id
     data["nome"] = cargo.nome
 
-    data["cargo_id"] = cargo.cargo_id
-
     return jsonify(data)
